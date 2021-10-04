@@ -40,11 +40,13 @@ Please describe all the steps necessary to reproduce the key result(s) of this s
 
 Program the task, collect the data, fit psychometric functions to the data, and perform the significance tests following their procedure. This can be done at both the individual and population level. 
 
+For visual stimuli, I'll use mgl (our lab's version of psych toolbox). We can make gaussian blobs and control contrast, timing, and presentation. For auditory stimuli we use head-related transfer functions from the MIT media lab. Once we get the data, we fit psychometric curves using existing toolboxes.
+
 ### Differences from original study
 
 Explicitly describe known differences in the analysis pipeline between the original paper and yours (e.g., computing environment). The goal, of course, is to minimize those differences, but differences may occur. Also, note whether such differences are anticipated to influence your ability to reproduce the original results.
 
-Our stimuli may differ slightly. The original paper did not provide code, so we have to make some inference about how they programmed some aspects. 
+Our stimuli may differ slightly. The original paper did not provide code, so we have to make some inference about how they programmed some aspects. Curve fitting should be the same.
 
 ## Project Progress Check 1
 
