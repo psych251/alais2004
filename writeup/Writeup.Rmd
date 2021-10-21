@@ -10,75 +10,72 @@ output:
       collapsed: false
 ---
 
-<!-- Reproducibility reports should all use this template to standardize reporting across projects. These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
-## Introduction
+##Introduction
 
-[No abstract is needed.]  Each reproducibility project will have a straightforward, no frills report of the study and reproducibility results. These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of your attempt to reproduce the results. Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for your reproducibility attempt, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
-
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
-
-### Justification for choice of study
-
-This is something Justin and I have been talking about for a while. It's related to bayesian inference and we think the original analysis was quite poorly done. Cue combination has long been used as a canonical example of "optimal" bayesian inference, and has typically been the behavior to match for theoretical neural representations (i.e. probabilistic population codes). We find the lack of power of the original results quite disturbing, and many follow-up studies have found varying results.
-
-### Anticipated challenges
-
-Do you anticipate running into any challenges when attempting to reproduce these result(s)? If so please, list them here.
-
-### Links
-
-Project repository (on Github): https://github.com/psych251/alais2004
-
-Original paper (as hosted in your repo): https://pubmed.ncbi.nlm.nih.gov/14761661/ 
-
-## Methods
-
-### Description of the steps required to reproduce the results
-
-Please describe all the steps necessary to reproduce the key result(s) of this study. 
-
-Program the task, collect the data, fit psychometric functions to the data, and perform the significance tests following their procedure. This can be done at both the individual and population level. 
-
-For visual stimuli, I'll use mgl (our lab's version of psych toolbox). We can make gaussian blobs and control contrast, timing, and presentation. For auditory stimuli we use head-related transfer functions from the MIT media lab. Once we get the data, we fit psychometric curves using existing toolboxes.
-
-### Differences from original study
-
-Explicitly describe known differences in the analysis pipeline between the original paper and yours (e.g., computing environment). The goal, of course, is to minimize those differences, but differences may occur. Also, note whether such differences are anticipated to influence your ability to reproduce the original results.
-
-Our stimuli may differ slightly. The original paper did not provide code, so we have to make some inference about how they programmed some aspects. Curve fitting should be the same.
-
-## Project Progress Check 1
-
-### Measure of success
-
-Please describe the outcome measure for the success or failure of your reproduction and how this outcome will be computed.
+This study supports a model of optimal integration of stimuli. In a spatial localization task, the authors claim that visual and auditory spatial likelihood distributions are multiplicatively combined to form a posterior distribution of the combined event. They claim that the weighting of the two input distributions is governed by their relative reliability, as defined by the localization error of the stimulus (measured as the width of the gaussian perceptual likelihood distribution of each unimodal stimulus). They show a reduction in the uncertainty of bimodal cues compared to unimodal in line with an optimally integrating observer. They also show that the percept of discrepant bimodal cues falls between the two unimodal cues, pulled towards one, consistent with their relative reliabilities.
 
 
-### Pipeline progress
 
-Earlier in this report, you described the steps necessary to reproduce the key result(s) of this study. Please describe your progress on each of these steps (e.g., data preprocessing, model fitting, model evaluation).
+##Methods
+
+###Power Analysis
+
+The authors fit best-fit psychometric functions to 2AFC task data in order to define the perceptual likelihood distribution of the stimulus, given by the mean and standard deviation (uncertainty) of the function. Confidence intervals for the mean and uncertainty are determined via 500 bootstrapped repetitions from the original data, with replacement. 1-tailed t-tests on these bootstrapped values deteremine significance.
+
+###Planned Sample
+
+5 subjects, corrected to normal vision and hearing, found through Stanford Psychology's SONA participant pool.
+
+###Materials
+
+Visual stimuli are presented on a 60 hz Vpixx monitor. Auditory stimuli are delivered through over-ear headphones. Gaussian blob visual stimuli are created with mgl (Gardner, 2018) and MATLAB. Auditory clicks are localized with head-related transfer functions from the MIT Media lab.
+
+###Procedure	
+
+"Observers were required to localize in space brief light “blobs” or sound “clicks,” presented either separately (unimodally) or together (bimodally). In a given trial, two sets of stimuli were presented successively (separated by a 500 ms pause) and observers were asked to indicate which appeared to be more to the left, guessing if unsure. The visual stimuli were low-contrast (10%) Gaussian blobs of various widths, back-projected for 15 ms onto a translucent perspex screen (80 × 110 cm) subtending 90° × 108° when viewed binocularly from 40 cm. The auditory stimuli were brief (1.5 ms) clicks presented though two visible high-quality speakers at the edge of the screen, with the apparent position of the sound controlled by interaural time differences.
+
+"With unimodal thresholds established, we then measured localization for a blob and click presented simultaneously. Observers were asked to envisage each presentation as a single event, like a ball hitting the screen, and report which of the two presentations was more leftward. For one presentation (randomly first or second), the visual and auditory stimuli were in conflict, with the visual stimulus displaced Δ degrees rightward and the auditory stimulus displaced Δ degrees leftward (SV – SA = 2Δ, where SV and SA are the spatial positions of the visual and auditory stimuli). The average position of this stimulus was always zero, as in previous studies [9]. On the other (non-conflict) presentation, the two modalities were covaried to the left or right of center by the amount shown in the abscissa (with positive meaning rightward)"
+
+###Analysis Plan
+
+Fit psychometric curves to the data. Get confidence intervals from 500-repetition bootstrap. Use 1-tailed t test to compare predictions to model predictions (single-value mean and variance measures). I will do this for each individual subject, as well as aggregated data, as in the original paper.
+
+I will also test alternative models to see if they are statistically significant as well. I will also evaluate them via a model-based approach, by testing models' abilities to explain the data rather than comparing summary statistics of the distributions. 
+
+###Differences from Original Study
+
+We will display Gaussian stimuli on noisy backgrounds to make the visual condition slightly harder. We will also use smaller stimuli (due to screen constraints). We will also test 3 offset conditions (opposed to 5) in order to reduce the time it takes to collect full data sets. Our sample size will be different (sampling from Stanford undergraduates).
 
 
-## Results
+#### Actual Sample
+  5 undergraduates from the Stanford SONA pool with normal or corrected-to-normal vision and hearing.
+
+#### Differences from pre-data collection methods plan
+  We will display our stimuli on noisy backgrounds to make the task more difficult, as well as use smaller stimulus sizes to fit our screen.
+
+
+##Results
+
 
 ### Data preparation
 
 Data preparation following the analysis plan.
 	
 ```{r include=F}
-### Data Preparation
+###Data Preparation
 
-#### Load Relevant Libraries and Functions
+####Load Relevant Libraries and Functions
 
-#### Import data
+####Import data
 
 #### Data exclusion / filtering
 
 #### Prepare data for analysis - create columns etc.
 ```
 
-### Key analysis
+### Confirmatory analysis
 
 The analyses as specified in the analysis plan.  
 
@@ -90,10 +87,10 @@ Any follow-up analyses desired (not required).
 
 ## Discussion
 
-### Summary of Reproduction Attempt
+### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the key analysis and assess whether you successfully reproduced it, partially reproduced it, or failed to reproduce it.  
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis of the dataset, (b) assessment of the meaning of the successful or unsuccessful reproducibility attempt - e.g., for a failure to reproduce the original findings, are the differences between original and present analyses ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the reproducibility attempt (if you contacted them).  None of these need to be long.
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
